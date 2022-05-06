@@ -124,7 +124,7 @@ async def echo(bot, update):
             chat_id=update.chat.id,
             text=f'ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ʟɪɴᴋ ⌛',
             disable_web_page_preview=True,
-            reply_to_message_id=update.message_id
+            reply_to_message_id=update.message.id
           )
     process = await asyncio.create_subprocess_exec(
         *command_to_exec,
