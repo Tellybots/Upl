@@ -21,7 +21,7 @@ from functions.display_progress import progress_for_pyrogram, humanbytes, TimeFo
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from PIL import Image
-
+from pyrogram.types import *
 
 
 
@@ -85,7 +85,7 @@ async def ddl_call_back(bot, update):
                 youtube_dl_url,
                 download_directory,
                 update.message.chat.id,
-                update.message.message_id,
+                Message.id,
                 c_time
             )
         except asyncio.TimeOutError:
