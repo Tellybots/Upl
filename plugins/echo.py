@@ -47,10 +47,6 @@ async def echo(bot, update):
     if not update.from_user:
         return await update.reply_text("I don't know about you sar :(")
     await add_user_to_database(bot, update)
-    await bot.send_chat_action(
-       chat_id=update.chat.id,
-       action="typing"
-    )
     if Config.UPDATES_CHANNEL:
       fsub = await handle_force_subscribe(bot, update)
       if fsub == 400:
@@ -127,7 +123,7 @@ async def echo(bot, update):
             chat_id=update.chat.id,
             text=f'ᴘʀᴏᴄᴇssɪɴɢ ʏᴏᴜʀ ʟɪɴᴋ ⌛',
             disable_web_page_preview=True,
-            reply_to_message_id=update.message_id
+            reply_to_top_message_id=Message.id
           )
     process = await asyncio.create_subprocess_exec(
         *command_to_exec,
@@ -152,7 +148,7 @@ async def echo(bot, update):
         await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.NO_VOID_FORMAT_FOUND.format(str(error_message)),
-            reply_to_message_id=update.message_id,
+            reply_to_top_message_id=Message.id,
             parse_mode="html",
             disable_web_page_preview=True
         )
@@ -263,7 +259,7 @@ async def echo(bot, update):
             text=Translation.FORMAT_SELECTION.format(Thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
             reply_markup=reply_markup,
             parse_mode="html",
-            reply_to_message_id=update.message_id
+            reply_to_top_message_id=Message.id
         )
     else:
         # fallback for nonnumeric port a.k.a seedbox.io
@@ -285,6 +281,6 @@ async def echo(bot, update):
             text=Translation.FORMAT_SELECTION,
             reply_markup=reply_markup,
             parse_mode="html",
-            reply_to_message_id=update.message_id
+            reply_to_top_message_id=Message.id
         )
 
