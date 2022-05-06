@@ -34,7 +34,7 @@ from plugins.database.add import add_user_to_database
 from plugins.settings.settings import *
 
 
-@Client.on_message(filters.private & filters.photo & ~filters.edited)
+@Client.on_edited_message(filters.private & filters.photo)
 async def photo_handler(bot: Client, event: Message):
     if not event.from_user:
         return await event.reply_text("I don't know about you sar :(")
@@ -48,7 +48,7 @@ async def photo_handler(bot: Client, event: Message):
     await editable.edit("**✅ ᴄᴜsᴛᴏᴍ ᴛʜᴜᴍʙɴᴀɪʟ sᴀᴠᴇᴅ sᴜᴄᴄᴇssғᴜʟʟʏ!!**")
 
 
-@Client.on_message(filters.private & filters.command(["delthumb", "deletethumbnail"]) & ~filters.edited)
+@Client.on_edited_message(filters.private & filters.command(["delthumb", "deletethumbnail"]))
 async def delete_thumb_handler(bot: Client, event: Message):
     if not event.from_user:
         return await event.reply_text("I don't know about you sar :(")
