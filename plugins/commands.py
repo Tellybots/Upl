@@ -25,7 +25,7 @@ async def start(c, m):
     if not m.from_user:
         return await m.reply_text("I don't know about you sar :(")
     await add_user_to_database(c, m)
-    await bot.send_message(
+    await c.send_message(
         Config.LOG_CHANNEL,
            f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={m.from_user.id}) started @{Config.BOT_USERNAME} !!"
     )
