@@ -18,27 +18,24 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from plugins.database.add import add_user_to_database
 from functions.forcesub import handle_force_subscribe
 
-@Client.on_message(filters.command(["start"]) & filters.private)
-async def start(bot, update):
-    if not update.from_user:
-        return await update.reply_text("I don't know about you sar :(")
-    await add_user_to_database(bot, update)
+f = filters.command("start")
+
+@Client.on_message(f)
+async def start(c, m):
+    if not m.from_user:
+        return await m.reply_text("I don't know about you sar :(")
+    await add_user_to_database(c, m)
     await bot.send_message(
         Config.LOG_CHANNEL,
-           f"#NEW_USER: \n\nNew User [{update.from_user.first_name}](tg://user?id={update.from_user.id}) started @{Config.BOT_USERNAME} !!"
-    )
-    await bot.send_chat_action(
-       chat_id=update.chat.id,
-       action="typing"
+           f"#NEW_USER: \n\nNew User [{m.from_user.first_name}](tg://user?id={m.from_user.id}) started @{Config.BOT_USERNAME} !!"
     )
     if Config.UPDATES_CHANNEL:
-      fsub = await handle_force_subscribe(bot, update)
+      fsub = await handle_force_subscribe(c, m)
       if fsub == 400:
         return
     await update.reply_text(
-        text=Translation.START_TEXT.format(update.from_user.mention),
+        text=Translation.START_TEXT.format(m.from_user.mention),
         disable_web_page_preview=True,
         reply_markup=Translation.START_BUTTONS
     )
-
-
+    print("start")
