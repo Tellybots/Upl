@@ -25,7 +25,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from pyrogram.errors import UserNotParticipant
 from functions.ran_text import random_char
 from plugins.database.add import add_user_to_database
-from pyrogram.types import Thumbnail
+from pyrogram.types import *
 
 @Client.on_message(filters.private & filters.regex(pattern=".*http.*"))
 async def echo(bot, update):
