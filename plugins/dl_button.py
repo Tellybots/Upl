@@ -69,7 +69,7 @@ async def ddl_call_back(bot, update):
     await bot.edit_message_text(
         text=Translation.DOWNLOAD_START,
         chat_id=update.message.chat.id,
-        message_id=update.message.message_id
+        message_id=Message.id
     )
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
@@ -92,7 +92,7 @@ async def ddl_call_back(bot, update):
             await bot.edit_message_text(
                 text=Translation.SLOW_URL_DECED,
                 chat_id=update.message.chat.id,
-                message_id=update.message.message_id
+                message_id=Message.id
             )
             return False
     if os.path.exists(download_directory):
@@ -100,7 +100,7 @@ async def ddl_call_back(bot, update):
         await bot.edit_message_text(
             text=Translation.UPLOAD_START,
             chat_id=update.message.chat.id,
-            message_id=update.message.message_id
+            message_id=Message.id
         )
         file_size = Config.TG_MAX_FILE_SIZE + 1
         try:
@@ -113,7 +113,7 @@ async def ddl_call_back(bot, update):
             await bot.edit_message_text(
                 chat_id=update.message.chat.id,
                 text=Translation.RCHD_TG_API_LIMIT,
-                message_id=update.message.message_id
+                message_id=Message.id
             )
         else:
             # ref: message from @SOURCES_CODES
@@ -125,7 +125,7 @@ async def ddl_call_back(bot, update):
                     document=download_directory,
                     thumb=thumbnail,
                     caption=description,
-                    reply_to_message_id=update.message.reply_to_message.message_id,
+                    reply_to_top_message_id=Message.id,
                     progress=progress_for_pyrogram,
                     progress_args=(
                         Translation.UPLOAD_START,
@@ -145,7 +145,7 @@ async def ddl_call_back(bot, update):
                     height=height,
                     supports_streaming=True,
                     thumb=thumb_image_path,
-                    reply_to_message_id=update.message.reply_to_message.message_id,
+                    reply_to_top_message_id=Message.id,
                     progress=progress_for_pyrogram,
                     progress_args=(
                         Translation.UPLOAD_START,
@@ -163,7 +163,7 @@ async def ddl_call_back(bot, update):
                     parse_mode="HTML",
                     duration=duration,
                     thumb=thumbnail,
-                    reply_to_message_id=update.message.reply_to_message.message_id,
+                    reply_to_top_message_id=Message.id,
                     progress=progress_for_pyrogram,
                     progress_args=(
                         Translation.UPLOAD_START,
@@ -180,7 +180,7 @@ async def ddl_call_back(bot, update):
                     duration=duration,
                     length=width,
                     thumb=thumbnail,
-                    reply_to_message_id=update.message.reply_to_message.message_id,
+                    reply_to_top_message_id=Message.id,
                     progress=progress_for_pyrogram,
                     progress_args=(
                         Translation.UPLOAD_START,
@@ -201,14 +201,14 @@ async def ddl_call_back(bot, update):
             await bot.edit_message_text(
                 text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download, time_taken_for_upload),
                 chat_id=update.message.chat.id,
-                message_id=update.message.message_id,
+                message_id=Message.id,
                 disable_web_page_preview=True
             )
     else:
         await bot.edit_message_text(
             text=Translation.NO_VOID_FORMAT_FOUND.format("Incorrect Link"),
             chat_id=update.message.chat.id,
-            message_id=update.message.message_id,
+            message_id=Message_id,
             disable_web_page_preview=True
         )
 
