@@ -33,7 +33,7 @@ async def start(c, m):
       fsub = await handle_force_subscribe(c, m)
       if fsub == 400:
         return
-    await update.reply_text(
+    await m.reply_text(
         text=Translation.START_TEXT.format(m.from_user.mention),
         disable_web_page_preview=True,
         reply_markup=Translation.START_BUTTONS
